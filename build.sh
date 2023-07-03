@@ -49,7 +49,7 @@ function build {
 
 main() {
   if [ -z "${RELEASE_VERSION}" ] ; then
-    RELEASE_VERSION=$(git describe --abbrev=0 --tags | tr -d 'v')
+    RELEASE_VERSION=$(git rev-parse --short HEAD| tr -d 'v')
   fi
   if [ -z "${RELEASE_VERSION}" ] ; then
     RELEASE_VERSION=$(cat RELEASE_VERSION)
@@ -73,6 +73,7 @@ main() {
 
   echo "Checksums:"
   (cd $buildpath && shasum -a256 gh-ost* 2>/dev/null)
+  exit 0
 }
 
 main "$@"
