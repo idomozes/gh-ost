@@ -294,8 +294,8 @@ func (this *Inspector) restartReplication() error {
 	}
 
 	var stopError, startError error
-	_, stopError = sqlutils.ExecNoPrepare(this.db, `stop slave`)
-	_, startError = sqlutils.ExecNoPrepare(this.db, `start slave`)
+	_, stopError = sqlutils.ExecNoPrepare(this.db, `CALL mysql.rds_stop_replication`)
+	_, startError = sqlutils.ExecNoPrepare(this.db, `CALL mysql.rds_start_replication`)
 	if stopError != nil {
 		return stopError
 	}
